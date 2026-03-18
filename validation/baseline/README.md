@@ -109,6 +109,18 @@ The network is considered **baseline-ready** for monitoring and incident simulat
 
 ---
 
+## Key Verification Commands
+
+The following commands were used to validate baseline functionality:
+
+- `show ip interface brief`
+- `show ip route`
+- `show vlan brief`
+- `show arp`
+- `ping tests between endpoints`
+
+---
+
 ## Next Phase
 
 Proceed to:
