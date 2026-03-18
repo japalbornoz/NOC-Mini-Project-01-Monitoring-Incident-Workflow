@@ -1,0 +1,10 @@
+SRV1> show ip
+
+NAME        : SRV1[1]
+IP/MASK     : 10.10.10.20/24
+GATEWAY     : 10.10.10.1
+DNS         :
+MAC         : 00:50:79:66:68:01
+LPORT       : 20014
+RHOST:PORT  : 127.0.0.1:20015
+MTU         : 1500
