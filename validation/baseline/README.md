@@ -94,6 +94,21 @@ The network is considered **baseline-ready** for monitoring and incident simulat
 
 ---
 
+## Validation Evidence (Quick Access)
+
+### Device Outputs
+
+* [R1 Show Commands](./r1-show-commands.txt)
+* [DSW1 Show Commands](./dsw1-show-commands.txt)
+* [PC1 IP Info](./pc1-show-ip.txt)
+* [SRV1 IP Info](./srv1-show-ip.txt)
+
+### Connectivity Tests
+
+* [Ping Test Results](./ping-tests.txt)
+
+---
+
 ## Next Phase
 
 Proceed to:
