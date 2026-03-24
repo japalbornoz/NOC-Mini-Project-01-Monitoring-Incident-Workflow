@@ -87,6 +87,10 @@ Approximate round trip times in milli-seconds:
     Minimum = 18ms, Maximum = 28ms, Average = 22ms
 ```
 
+```md
+All devices responded with 0% packet loss, confirming full Layer 3 reachability from the PRTG server.
+```
+
 ### SNMP Configuration
 
 All network devices must have SNMP configured before onboarding.
@@ -107,10 +111,6 @@ snmp-server contact NOC
 
 access-list 10 permit 192.168.61.1
 snmp-server community NOCMONRO RO 10
-```
-
-```md
-All devices responded with 0% packet loss, confirming full Layer 3 reachability from the PRTG server.
 ```
 
 ---
