@@ -7,6 +7,29 @@ This setup simulates a Level 1 NOC environment where alerts are generated based 
 
 ---
 
+## Monitoring Platform
+
+Tool used:
+- PRTG Network Monitor
+
+Role in the lab:
+- Poll devices using ICMP and SNMP
+- Track uptime and availability
+- Act as the trigger source for alerts and incidents
+
+---
+
+## Monitored Devices
+
+| Device | IP Address | Role |
+|-------|------------|------|
+| R1 | 192.168.61.10 (outside) / 10.10.10.1 (inside) |
+| DSW1 | 10.10.10.2 | Distribution switch (management SVI) |
+| PC1 | 10.10.10.10 | Client endpoint |
+| SRV1 | 10.10.10.20 | Server endpoint |
+
+---
+
 ## Monitoring Architecture
 
 PRTG is installed on a Windows host and monitors devices across two networks:
@@ -24,31 +47,6 @@ PRTG Server
 Key requirement:
 - Full Layer 3 reachability between PRTG and all monitored devices
 - Proper routing and gateway configuration
-
----
-
-## Monitored Devices
-
-| Device | IP Address | Role |
-|-------|------------|------|
-| R1 | 192.168.61.10 / 10.10.10.1 | Edge router / gateway |
-| DSW1 | 10.10.10.2 | Distribution switch (management SVI) |
-| PC1 | 10.10.10.10 | Client endpoint |
-| SRV1 | 10.10.10.20 | Server endpoint |
-
----
-
-## Monitoring Architecture
-
-Monitoring path:
-
-Windows Host (PRTG)
-→ R1 (192.168.61.10)
-→ Internal Network (10.10.10.0/24)
-→ DSW1 / PC1 / SRV1
-
-Key requirement:
-- Bidirectional Layer 3 connectivity between PRTG and all monitored devices
 
 ---
 
