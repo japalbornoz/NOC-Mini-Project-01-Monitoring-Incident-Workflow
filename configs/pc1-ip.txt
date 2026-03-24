@@ -1,7 +1,12 @@
+PC1 IP CONFIGURATION
+====================
+
+Configuration command:
 ip 10.10.10.10 255.255.255.0 10.10.10.1
 save
 
-
+Verification command:
+show ip
 
 PC1> show ip
 
