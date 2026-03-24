@@ -25,16 +25,17 @@ For this lab, alerting focused primarily on:
 
 ## 3. Notification / Alert Configuration
 
-Alerting was configured within PRTG using built-in notification and sensor status logic.
+Alerting was configured within PRTG using built-in sensor status and alarm visibility in the web console.
 
 Configured behavior:
 - Sensors generate visible alarms when they enter a Down state
 - Warning and Down states are visible from the device tree and alarm view
-- The monitoring console acts as the primary alert display for this lab
+- The PRTG web console acts as the primary alert display for this lab
 
-If email, push, or other notification methods were not configured, state that clearly:
-- No external notification channel (email/SMS) was configured in this lab
-- Alerts were reviewed directly in the PRTG web console
+Current lab status:
+- No email alerting configured yet
+- No SMS alerting configured yet
+- No ticketing integration configured yet
 
 ---
 
