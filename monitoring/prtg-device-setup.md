@@ -21,7 +21,9 @@ Before adding devices to PRTG, the following requirements must be met:
 - Devices must respond to ping from the PRTG server
 
 Verification:
-ping 10.10.10.1
+Connectivity from the PRTG server was validated using ICMP:
+
+#### R1 (10.10.10.1)
 ```bash
 C:\Windows\System32>ping 10.10.10.1
 
@@ -37,7 +39,7 @@ Approximate round trip times in milli-seconds:
     Minimum = 5ms, Maximum = 9ms, Average = 7ms
 ```
 
-ping 10.10.10.2
+#### VLAN10 (10.10.10.2)
 ```bash
 C:\Windows\System32>ping 10.10.10.2
 
@@ -53,7 +55,7 @@ Approximate round trip times in milli-seconds:
     Minimum = 15ms, Maximum = 25ms, Average = 20ms
 ```
 
-ping 10.10.10.10
+#### PC1 (10.10.10.10)
 ```bash
 C:\Windows\System32>ping 10.10.10.10
 
@@ -69,7 +71,7 @@ Approximate round trip times in milli-seconds:
     Minimum = 13ms, Maximum = 34ms, Average = 24ms
 ```
 
-ping 10.10.10.20
+#### SRV1 (10.10.10.20)
 ```
 C:\Windows\System32>ping 10.10.10.20
 
@@ -105,6 +107,10 @@ snmp-server contact NOC
 
 access-list 10 permit 192.168.61.1
 snmp-server community NOCMONRO RO 10
+```
+
+```md
+All devices responded with 0% packet loss, confirming full Layer 3 reachability from the PRTG server.
 ```
 
 ---
