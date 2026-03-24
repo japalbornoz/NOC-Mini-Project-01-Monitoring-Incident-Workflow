@@ -85,7 +85,7 @@ Persistent Routes:
 Expected logic:
 10.10.10.0/24 should use 192.168.61.10 as next hop
 
-Optional command used:
+Configured command used:
 route -p add 10.10.10.0 mask 255.255.255.0 192.168.61.10
 
 [2] HOST TO R1 HOST-FACING INTERFACE
