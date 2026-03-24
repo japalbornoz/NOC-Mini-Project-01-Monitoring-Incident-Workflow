@@ -1,20 +1,20 @@
-PC1 IP CONFIGURATION
-====================
+SRV1 IP CONFIGURATION
+=====================
 
 Configuration command:
-ip 10.10.10.10 255.255.255.0 10.10.10.1
+ip 10.10.10.20 255.255.255.0 10.10.10.1
 save
 
 Verification command:
 show ip
 
-PC1> show ip
+SRV1> show ip
 
-NAME        : PC1[1]
-IP/MASK     : 10.10.10.10/24
+NAME        : SRV1[1]
+IP/MASK     : 10.10.10.20/24
 GATEWAY     : 10.10.10.1
 DNS         :
-MAC         : 00:50:79:66:68:00
-LPORT       : 20012
-RHOST:PORT  : 127.0.0.1:20013
+MAC         : 00:50:79:66:68:01
+LPORT       : 20014
+RHOST:PORT  : 127.0.0.1:20015
 MTU         : 1500
