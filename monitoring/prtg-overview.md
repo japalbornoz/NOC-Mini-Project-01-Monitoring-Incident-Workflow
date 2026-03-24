@@ -23,7 +23,7 @@ Role in the lab:
 
 | Device | IP Address | Role |
 |-------|------------|------|
-| R1 | 192.168.61.10 (outside) / 10.10.10.1 (inside) |
+| R1 | 192.168.61.10 (outside) / 10.10.10.1 (inside) | Edge router / gateway |
 | DSW1 | 10.10.10.2 | Distribution switch (management SVI) |
 | PC1 | 10.10.10.10 | Client endpoint |
 | SRV1 | 10.10.10.20 | Server endpoint |
