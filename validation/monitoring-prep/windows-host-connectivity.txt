@@ -7,7 +7,80 @@ Purpose: Validate host-to-lab reachability before full monitoring onboarding
 [1] PERSISTENT ROUTE TO LAB SUBNET
 ----------------------------------
 Command:
-route print -4
+route print -4 
+
+C:\Windows\System32>route print -4
+===========================================================================
+Interface List
+ 28...00 ff e8 3d 88 02 ......ExpressVPN TAP Adapter
+ 24...02 00 4c 4f 4f 50 ......Microsoft KM-TEST Loopback Adapter
+ 27...........................ExpressVPN TUN Driver
+ 26...0a 00 27 00 00 1a ......VirtualBox Host-Only Ethernet Adapter #3
+ 21...0a 00 27 00 00 15 ......VirtualBox Host-Only Ethernet Adapter
+  5...0a 00 27 00 00 05 ......VirtualBox Host-Only Ethernet Adapter #2
+  4...36 6f 24 c8 c9 29 ......Microsoft Wi-Fi Direct Virtual Adapter
+  6...36 6f 24 c8 c9 39 ......Microsoft Wi-Fi Direct Virtual Adapter #2
+ 15...00 50 56 c0 00 01 ......VMware Virtual Ethernet Adapter for VMnet1
+ 19...00 50 56 c0 00 08 ......VMware Virtual Ethernet Adapter for VMnet8
+ 11...34 6f 24 c8 c9 39 ......MediaTek MT7921 Wi-Fi 6 802.11ax PCIe Adapter
+ 12...34 6f 24 c8 c9 38 ......Bluetooth Device (Personal Area Network)
+ 18...5c 60 ba d7 09 d9 ......Realtek Gaming GbE Family Controller
+  1...........................Software Loopback Interface 1
+===========================================================================
+
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0      192.168.0.1    192.168.0.145     35
+       10.10.10.0    255.255.255.0    192.168.61.10     192.168.61.1     36
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+      169.254.0.0    255.255.255.0         On-link     169.254.0.204    281
+    169.254.0.204  255.255.255.255         On-link     169.254.0.204    281
+    169.254.0.255  255.255.255.255         On-link     169.254.0.204    281
+      172.16.99.0    255.255.255.0         On-link       172.16.99.1    261
+      172.16.99.1  255.255.255.255         On-link       172.16.99.1    261
+      172.16.99.2  255.255.255.255         On-link       172.16.99.1      6
+    172.16.99.255  255.255.255.255         On-link       172.16.99.1    261
+      192.168.0.0    255.255.255.0         On-link     192.168.0.145    291
+    192.168.0.145  255.255.255.255         On-link     192.168.0.145    291
+    192.168.0.255  255.255.255.255         On-link     192.168.0.145    291
+     192.168.32.0    255.255.255.0         On-link      192.168.32.1    291
+     192.168.32.1  255.255.255.255         On-link      192.168.32.1    291
+   192.168.32.255  255.255.255.255         On-link      192.168.32.1    291
+     192.168.56.0    255.255.255.0         On-link      192.168.56.1    281
+     192.168.56.1  255.255.255.255         On-link      192.168.56.1    281
+   192.168.56.255  255.255.255.255         On-link      192.168.56.1    281
+     192.168.57.0    255.255.255.0         On-link      192.168.57.1    281
+     192.168.57.1  255.255.255.255         On-link      192.168.57.1    281
+   192.168.57.255  255.255.255.255         On-link      192.168.57.1    281
+     192.168.61.0    255.255.255.0         On-link      192.168.61.1    291
+     192.168.61.1  255.255.255.255         On-link      192.168.61.1    291
+   192.168.61.255  255.255.255.255         On-link      192.168.61.1    291
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link      192.168.56.1    281
+        224.0.0.0        240.0.0.0         On-link     169.254.0.204    281
+        224.0.0.0        240.0.0.0         On-link      192.168.57.1    281
+        224.0.0.0        240.0.0.0         On-link     192.168.0.145    291
+        224.0.0.0        240.0.0.0         On-link      192.168.32.1    291
+        224.0.0.0        240.0.0.0         On-link       172.16.99.1    261
+        224.0.0.0        240.0.0.0         On-link      192.168.61.1    291
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link      192.168.56.1    281
+  255.255.255.255  255.255.255.255         On-link     169.254.0.204    281
+  255.255.255.255  255.255.255.255         On-link      192.168.57.1    281
+  255.255.255.255  255.255.255.255         On-link     192.168.0.145    291
+  255.255.255.255  255.255.255.255         On-link      192.168.32.1    291
+  255.255.255.255  255.255.255.255         On-link       172.16.99.1    261
+  255.255.255.255  255.255.255.255         On-link      192.168.61.1    291
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+      172.16.99.2  255.255.255.255         On-link        1
+       10.10.10.0    255.255.255.0    192.168.61.10       1
+===========================================================================
 
 Expected logic:
 10.10.10.0/24 should use 192.168.61.10 as next hop
@@ -20,6 +93,19 @@ route -p add 10.10.10.0 mask 255.255.255.0 192.168.61.10
 Command:
 ping 192.168.61.10
 
+C:\Windows\System32>ping 192.168.61.10
+
+Pinging 192.168.61.10 with 32 bytes of data:
+Reply from 192.168.61.10: bytes=32 time=3ms TTL=255
+Reply from 192.168.61.10: bytes=32 time=10ms TTL=255
+Reply from 192.168.61.10: bytes=32 time=10ms TTL=255
+Reply from 192.168.61.10: bytes=32 time=8ms TTL=255
+
+Ping statistics for 192.168.61.10:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 3ms, Maximum = 10ms, Average = 7ms
+
 Observed:
 Windows host successfully reached R1 on the host-facing subnet.
 
@@ -27,6 +113,19 @@ Windows host successfully reached R1 on the host-facing subnet.
 -------------------------------
 Command:
 ping 10.10.10.1
+
+C:\Windows\System32>ping 10.10.10.1
+
+Pinging 10.10.10.1 with 32 bytes of data:
+Reply from 10.10.10.1: bytes=32 time=7ms TTL=255
+Reply from 10.10.10.1: bytes=32 time=4ms TTL=255
+Reply from 10.10.10.1: bytes=32 time=3ms TTL=255
+Reply from 10.10.10.1: bytes=32 time=4ms TTL=255
+
+Ping statistics for 10.10.10.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 3ms, Maximum = 7ms, Average = 4ms
 
 Observed:
 Windows host successfully reached R1 internal interface.
@@ -36,6 +135,19 @@ Windows host successfully reached R1 internal interface.
 Command:
 ping 10.10.10.2
 
+C:\Windows\System32>ping 10.10.10.2
+
+Pinging 10.10.10.2 with 32 bytes of data:
+Reply from 10.10.10.2: bytes=32 time=22ms TTL=254
+Reply from 10.10.10.2: bytes=32 time=21ms TTL=254
+Reply from 10.10.10.2: bytes=32 time=15ms TTL=254
+Reply from 10.10.10.2: bytes=32 time=21ms TTL=254
+
+Ping statistics for 10.10.10.2:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 15ms, Maximum = 22ms, Average = 19ms
+
 Observed:
 Windows host successfully reached DSW1 management SVI after return-path correction.
 
@@ -44,6 +156,19 @@ Windows host successfully reached DSW1 management SVI after return-path correcti
 Command:
 ping 10.10.10.10
 
+C:\Windows\System32>ping 10.10.10.10
+
+Pinging 10.10.10.10 with 32 bytes of data:
+Request timed out.
+Reply from 10.10.10.10: bytes=32 time=16ms TTL=63
+Reply from 10.10.10.10: bytes=32 time=24ms TTL=63
+Reply from 10.10.10.10: bytes=32 time=20ms TTL=63
+
+Ping statistics for 10.10.10.10:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 16ms, Maximum = 24ms, Average = 20ms
+
 Observed:
 Windows host successfully reached PC1 through R1.
 
@@ -51,6 +176,19 @@ Windows host successfully reached PC1 through R1.
 ----------------
 Command:
 ping 10.10.10.20
+
+C:\Windows\System32>ping 10.10.10.20
+
+Pinging 10.10.10.20 with 32 bytes of data:
+Request timed out.
+Reply from 10.10.10.20: bytes=32 time=21ms TTL=63
+Reply from 10.10.10.20: bytes=32 time=20ms TTL=63
+Reply from 10.10.10.20: bytes=32 time=23ms TTL=63
+
+Ping statistics for 10.10.10.20:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 20ms, Maximum = 23ms, Average = 21ms
 
 Observed:
 Windows host successfully reached SRV1 through R1.
