@@ -1,0 +1,62 @@
+WINDOWS HOST CONNECTIVITY VALIDATION
+====================================
+
+Host: Windows monitoring workstation / PRTG host
+Purpose: Validate host-to-lab reachability before full monitoring onboarding
+
+[1] PERSISTENT ROUTE TO LAB SUBNET
+----------------------------------
+Command:
+route print -4
+
+Expected logic:
+10.10.10.0/24 should use 192.168.61.10 as next hop
+
+Optional command used:
+route -p add 10.10.10.0 mask 255.255.255.0 192.168.61.10
+
+[2] HOST TO R1 HOST-FACING INTERFACE
+------------------------------------
+Command:
+ping 192.168.61.10
+
+Observed:
+Windows host successfully reached R1 on the host-facing subnet.
+
+[3] HOST TO R1 INTERNAL GATEWAY
+-------------------------------
+Command:
+ping 10.10.10.1
+
+Observed:
+Windows host successfully reached R1 internal interface.
+
+[4] HOST TO DSW1 MANAGEMENT SVI
+-------------------------------
+Command:
+ping 10.10.10.2
+
+Observed:
+Windows host successfully reached DSW1 management SVI after return-path correction.
+
+[5] HOST TO PC1
+---------------
+Command:
+ping 10.10.10.10
+
+Observed:
+Windows host successfully reached PC1 through R1.
+
+[6] HOST TO SRV1
+----------------
+Command:
+ping 10.10.10.20
+
+Observed:
+Windows host successfully reached SRV1 through R1.
+
+[7] NOTES
+---------
+- Initial first-packet timeout on some pings was consistent with ARP learning.
+- Subsequent replies were successful and stable.
+- This confirmed that Windows-to-lab reachability was working before sensor validation.
