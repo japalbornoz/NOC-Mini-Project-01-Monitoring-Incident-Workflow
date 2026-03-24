@@ -1,20 +1,29 @@
 # PRTG Monitoring Overview
 
 ## Objective
-Provide visibility into network device health, availability, and performance using a centralized monitoring platform.
+Provide real-time visibility into network device health, availability, and performance using a centralized monitoring platform.
 
-This monitoring setup simulates a basic NOC environment where devices are continuously checked and alerts are generated when issues occur.
+This setup simulates a Level 1 NOC environment where alerts are generated based on device status, enabling early detection and response to network incidents.
 
 ---
 
-## Monitoring Platform
-Tool used:
-- PRTG Network Monitor
+## Monitoring Architecture
 
-Role in the lab:
-- Poll devices using ICMP and SNMP
-- Track uptime and availability
-- Serve as the trigger source for incidents and tickets
+PRTG is installed on a Windows host and monitors devices across two networks:
+
+- External interface: 192.168.61.0/24 (host side)
+- Internal lab network: 10.10.10.0/24
+
+Monitoring flow:
+
+PRTG Server
+→ R1 (gateway between networks)
+→ Internal network (10.10.10.0/24)
+→ DSW1 / PC1 / SRV1
+
+Key requirement:
+- Full Layer 3 reachability between PRTG and all monitored devices
+- Proper routing and gateway configuration
 
 ---
 
@@ -52,25 +61,36 @@ Used for:
 - quick failure detection
 
 ### SNMP (Read-Only)
-Used for:
-- system information (uptime, device identity)
-- interface and performance metrics (future expansion)
 
-Configuration approach:
+Used for:
+- device identification and uptime
+- performance metrics (CPU, memory, interfaces)
+
+Configuration:
+- SNMP version: v2c
 - community string: `NOCMONRO`
-- access restricted using ACL
-- monitoring host permitted explicitly
+- access control: restricted via ACL
+- only PRTG server IP is allowed
+
+Security Note:
+- Read-only community is used to prevent configuration changes
 
 ---
 
 ## What is Being Monitored
 
-Initial scope includes:
-- device availability (up/down)
-- response time (latency)
-- system uptime via SNMP
+Current monitoring coverage:
 
-This reflects typical NOC Level 1 visibility requirements.
+- Device availability (ICMP ping)
+- Network latency (response time)
+- System uptime (SNMP)
+
+Planned/optional expansion:
+- Interface utilization (bandwidth)
+- CPU and memory usage
+- Error/discard rates
+
+This aligns with typical L1 NOC monitoring responsibilities.
 
 ---
 
@@ -95,6 +115,19 @@ This lab demonstrates:
 - Single monitoring host (no redundancy)
 
 These limitations are expected in a lab environment but do not affect the core monitoring concepts being demonstrated.
+
+---
+
+## Key Dependencies
+
+Monitoring accuracy depends on:
+
+- Correct IP addressing
+- Proper default gateway configuration
+- SNMP reachability (UDP 161)
+- ICMP allowed between devices
+
+Any failure in these areas will result in false alerts or missing data.
 
 ---
 
