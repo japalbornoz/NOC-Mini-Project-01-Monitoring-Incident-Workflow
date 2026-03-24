@@ -57,6 +57,7 @@ Used for:
 - basic reachability checks
 - uptime validation
 - quick failure detection
+- does not provide performance metrics (availability only)
 
 ### SNMP (Read-Only)
 
@@ -98,6 +99,7 @@ In a real NOC environment:
 - monitoring tools detect issues before users report them
 - alerts trigger incident workflows
 - engineers use monitoring data for troubleshooting
+- provides baseline data for identifying anomalies
 
 This lab demonstrates:
 - how monitoring depends on proper network reachability
