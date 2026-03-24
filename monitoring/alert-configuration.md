@@ -116,3 +116,15 @@ This lab reflects the first stage of that process by showing how sensor failures
 See evidence: `monitoring/images/r1-down-alert.png`
 
 See evidence: `monitoring/images/r1-recovery-green.png`
+
+---
+
+## 9. Planned Enhancements
+
+The following alerting capabilities are planned for future improvement:
+
+- Email-based alert notification
+- Integration with Jira Service Management for incident tracking
+- SMS or mobile-based notification for critical alerts
+
+These enhancements will extend the lab from basic monitoring visibility to a more complete incident management workflow.
