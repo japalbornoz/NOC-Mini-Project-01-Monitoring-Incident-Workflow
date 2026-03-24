@@ -123,6 +123,6 @@ Proper sensor selection ensures:
 - Reduced false positives
 - Faster troubleshooting
 
-See evidence: [R1 sensors (raw)](../../screenshots/prtg-sensors-r1.png?raw=1)
+See evidence: [R1 sensors](https://github.com/japalbornoz/NOC-Mini-Project-01-Monitoring-Incident-Workflow/blob/main/screenshots/prtg-sensors-r1.png)
 
 This setup reflects typical L1 monitoring responsibilities.
