@@ -114,4 +114,5 @@ The workflow is typically:
 This lab reflects the first stage of that process by showing how sensor failures become visible operational events.
 
 See evidence: `monitoring/images/r1-down-alert.png`
+
 See evidence: `monitoring/images/r1-recovery-green.png`
