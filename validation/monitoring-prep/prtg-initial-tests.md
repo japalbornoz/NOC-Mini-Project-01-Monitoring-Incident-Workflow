@@ -64,6 +64,13 @@ The SNMP configuration on both devices used the following model:
 
 ACL match counters on both devices confirmed that PRTG polling traffic was reaching and being permitted by the monitored devices.
 
+## Evidence
+### PRTG Overview
+![PRTG Overview - R1 and DSW1 Initial Sensors](./screenshots/prtg-overview-r1-dsw1.png)
+
+### SNMP Sensor Validation
+![R1 SNMP System Uptime Sensor](./screenshots/prtg-snmp-uptime-r1.png)
+
 ## Result
 PRTG initial onboarding was successful.
 
