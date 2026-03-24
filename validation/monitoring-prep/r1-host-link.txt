@@ -1,0 +1,43 @@
+R1 HOST LINK VALIDATION
+=======================
+
+Device: R1
+Purpose: Validate R1 reachability to the Windows monitoring host
+
+[1] INTERFACE STATUS
+--------------------
+Command:
+show ip interface brief
+
+Expected:
+- FastEthernet0/0 up/up (internal lab subnet)
+- FastEthernet0/1 up/up (host-facing subnet)
+
+[2] HOST-FACING ADJACENCY
+-------------------------
+Command:
+show arp
+
+Expected:
+- Windows host IP should resolve in ARP after successful communication
+
+[3] HOST REACHABILITY
+---------------------
+Command:
+ping 192.168.61.1
+
+Observed:
+R1 successfully reached the Windows host.
+
+[4] INTERNAL ROUTING CONTEXT
+----------------------------
+Command:
+show ip route
+
+Expected:
+- connected route for internal subnet
+- connected route for host-facing subnet
+
+[5] VALIDATION CONCLUSION
+-------------------------
+R1 had working Layer 3 reachability to the Windows monitoring host, confirming bidirectional traffic flow required for monitoring and management.
