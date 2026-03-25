@@ -45,7 +45,7 @@ When R1 became unavailable, the following operational impact was observed:
 
 - PRTG lost visibility to R1 sensors
 - The routed path between the monitoring host and the internal lab network was affected
-- Monitoring of downstream internal connectivity depended on restoration of the router path
+- Visibility to downstream internal devices depended on restoration of the router path.
 
 In a production environment, this type of incident would represent a significant service-impacting event because the router is a critical forwarding device.
 
