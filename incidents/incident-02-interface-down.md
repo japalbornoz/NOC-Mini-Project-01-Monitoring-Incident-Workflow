@@ -34,10 +34,14 @@ Observed indicators:
 This helped distinguish the event from Incident 01, where all R1 sensors failed due to full device unavailability.
 
 ### Detection Evidence
+PRTG Dashboard
 - [PRTG Healthy Dashboard View](../screenshots/prtg-dashboard-healthy.png)
-- [Interface / Link Failure Evidence](../screenshots/interface-down-alert.png)
+- [PRTG Dashboard DSW1 Down](../screenshots/prtg-dashboard-dsw1-down.png)
+- [PRTG Dashboard DSW1 Down](../screenshots/dsw1-down-alert.png)
 
-> Replace `interface-down-alert.png` with your actual screenshot name if different.
+
+GNS3 Topology
+- [GNS3 DSW1 Interface e0/0 Down](../screenshots/gns3-topology-dsw1-interface-e0-down.png)
 
 ---
 
