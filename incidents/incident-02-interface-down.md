@@ -1,5 +1,3 @@
-<img width="1291" height="560" alt="image" src="https://github.com/user-attachments/assets/d4fb00ba-cc48-49bd-b7ff-045fd2e41ecb" /># Incident 02 - Interface Down
-
 ## 1. Incident Summary
 
 This incident documents a controlled interface or link outage in the lab environment to validate monitoring visibility, incident detection, and initial triage of a partial network failure.
