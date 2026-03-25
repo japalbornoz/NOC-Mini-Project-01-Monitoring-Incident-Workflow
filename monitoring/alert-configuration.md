@@ -10,7 +10,7 @@ The goal is to simulate a basic NOC alerting workflow where monitoring events be
 
 ## 2. Alerting Approach
 
-PRTG generates alerts based on sensor state changes. In this lab, alert visibility was based on built-in sensor status monitoring within the PRTG web console.
+PRTG generates alerts based on sensor state changes. In this lab, alert visibility relied on built-in sensor status monitoring within the PRTG web console.
 
 Sensor state interpretation:
 
@@ -48,7 +48,7 @@ The following conditions were used to generate alerts:
 - Ping sensor failure
 - Ping v2 sensor failure
 - SNMP sensor failure
-- Device or interface becoming unreachable
+- Device or monitored path becoming unreachable
 
 Typical examples:
 - If R1 becomes unreachable, related sensors change to Down state
@@ -87,14 +87,16 @@ Expected result:
 - PRTG displays an alarm for the affected R1 sensors during the outage
 - The alarm clears after connectivity is restored
 
-See evidence: R1 Down
-- [GNS3 R1 STOP](../screenshots/gns3-topology-r1-down.png)
-- [R1 Down](../screenshots/r1-down-alert.png)
+### Evidence
 
-See evidence: R1 Recovery
-- [R1 Recovery Warming up](../screenshots/r1-recovery-green-part1.png)
+**Failure simulation**
+- [GNS3 R1 Stop State](../screenshots/gns3-topology-r1-down.png)
+- [PRTG R1 Down Alert](../screenshots/r1-down-alert.png)
+
+**Recovery sequence**
+- [R1 Recovery In Progress](../screenshots/r1-recovery-green-part1.png)
 - [R1 Recovery Partial Green](../screenshots/r1-recovery-green-part2.png)
-- [R1 Recovery All Green](../screenshots/r1-recovery-green-part3.png)
+- [R1 Recovery Fully Restored](../screenshots/r1-recovery-green-part3.png)
 
 ---
 
@@ -120,7 +122,7 @@ In a real NOC environment, alerts are the starting point for incident handling.
 Typical workflow:
 1. Monitoring sensor changes state
 2. Alert appears in the monitoring platform
-3. Operator reviews affected device and metric
+3. Operator reviews the affected device and metric
 4. Initial troubleshooting begins
 5. Incident is logged or escalated if needed
 
