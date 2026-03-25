@@ -82,8 +82,6 @@ Initial conclusion:
 | T5 | PRTG sensors began recovery |
 | T6 | All monitored R1 sensors returned to Up |
 
-> Replace `T0` to `T6` with actual timestamps if you recorded them during testing.
-
 ---
 
 ## 7. Technical Validation
