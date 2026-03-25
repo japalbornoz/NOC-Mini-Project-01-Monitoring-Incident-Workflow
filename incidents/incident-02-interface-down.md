@@ -1,4 +1,4 @@
-# Incident 02 - Interface Down
+<img width="1291" height="560" alt="image" src="https://github.com/user-attachments/assets/d4fb00ba-cc48-49bd-b7ff-045fd2e41ecb" /># Incident 02 - Interface Down
 
 ## 1. Incident Summary
 
@@ -38,7 +38,6 @@ PRTG Dashboard
 - [PRTG Healthy Dashboard View](../screenshots/prtg-dashboard-healthy.png)
 - [PRTG Dashboard DSW1 Down](../screenshots/prtg-dashboard-dsw1-down.png)
 - [PRTG DSW1 Sensors List Down](../screenshots/dsw1-down-alert.png)
-
 
 GNS3 Topology
 - [GNS3 DSW1 Interface e0/0 Down](../screenshots/gns3-topology-dsw1-interface-e0-down.png)
@@ -85,18 +84,6 @@ FastEthernet0/1            192.168.61.10   YES NVRAM  up                    up
 FastEthernet1/0            unassigned      YES NVRAM  administratively down down
 ```
 
-- show arp
-```cisco
-R1#sh arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  10.10.10.10            75   0050.7966.6800  ARPA   FastEthernet0/0
-Internet  10.10.10.2            118   aabb.cc80.0100  ARPA   FastEthernet0/0
-Internet  10.10.10.1              -   c001.356f.0000  ARPA   FastEthernet0/0
-Internet  10.10.10.20            75   0050.7966.6801  ARPA   FastEthernet0/0
-Internet  192.168.61.1            0   0050.56c0.0001  ARPA   FastEthernet0/1
-Internet  192.168.61.10           -   c001.356f.0001  ARPA   FastEthernet0/1
-```
-
 - ping 192.168.61.1
 ```cisco
 R1#ping 192.168.61.1
@@ -139,21 +126,6 @@ Ethernet3/2            unassigned      YES unset  up                    up
 Ethernet3/3            unassigned      YES unset  up                    up
 Vlan1                  unassigned      YES unset  administratively down down
 Vlan10                 10.10.10.2      YES NVRAM  up                    up
-```
-
-- show vlan brief
-```cisco
-VLAN Name                             Status    Ports
----- -------------------------------- --------- -------------------------------
-1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
-                                                Et1/3, Et2/0, Et2/1, Et2/2
-                                                Et2/3, Et3/0, Et3/1, Et3/2
-                                                Et3/3
-10   USERS                            active    Et0/0, Et0/1, Et0/2
-1002 fddi-default                     act/unsup
-1003 token-ring-default               act/unsup
-1004 fddinet-default                  act/unsup
-1005 trnet-default                    act/unsup
 ```
 
 Windows:
@@ -230,9 +202,11 @@ Validation points:
 - Connectivity restored immediately after interface recovery
 
 ### Recovery Evidence
-- [Interface Recovery Evidence](../screenshots/interface-recovery-green.png)
+- [PRTG Dashboard DSW1 Down](../screenshots/prtg-dashboard-dsw1-up.png)
+- [PRTG DSW1 Sensors List Down](../screenshots/dsw1-up-alert.png)
 
-> Replace with your actual recovery screenshot filename.
+GNS3 Topology
+- [GNS3 DSW1 Interface e0/0 Down](../screenshots/gns3-topology-dsw1-interface-e0-up.png)
 
 ---
 
