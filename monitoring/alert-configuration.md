@@ -2,34 +2,36 @@
 
 ## 1. Objective
 
-This section documents how alerting was configured in PRTG to notify the operator when monitored devices or sensors enter a warning or down state.
+This section documents how alert visibility was configured in PRTG to identify monitored devices or sensors entering a warning or down state.
 
-The goal is to simulate a basic NOC alerting workflow where monitoring events generate actionable incidents.
+The goal is to simulate a basic NOC alerting workflow where monitoring events become visible operational issues requiring investigation.
 
 ---
 
 ## 2. Alerting Approach
 
-Alerts in PRTG are triggered when a sensor changes state, such as:
+PRTG generates alerts based on sensor state changes. In this lab, alert visibility was based on built-in sensor status monitoring within the PRTG web console.
 
-- Up → normal operation
-- Warning → threshold exceeded
-- Down → device or service unavailable
+Sensor state interpretation:
+
+- Up (green) → normal operation
+- Warning (yellow) → non-critical issue or threshold condition
+- Down (red) → device or monitored metric unavailable
 
 For this lab, alerting focused primarily on:
 - device unreachability
 - sensor down state
-- basic incident visibility from the monitoring console
+- visible alarm conditions in the monitoring console
 
 ---
 
 ## 3. Notification / Alert Configuration
 
-Alerting was configured within PRTG using built-in sensor status and alarm visibility in the web console.
+Alerting was configured using built-in PRTG alarm visibility and sensor state changes in the web console.
 
 Configured behavior:
 - Sensors generate visible alarms when they enter a Down state
-- Warning and Down states are visible from the device tree and alarm view
+- Warning and Down states are visible in the device tree and alarm view
 - The PRTG web console acts as the primary alert display for this lab
 
 Current lab status:
@@ -70,18 +72,29 @@ For this project, the most important operational state was:
 
 ## 6. Alert Validation
 
-Alerting was validated by simulating a device or path failure and observing sensor state changes in PRTG.
+Alerting was validated by simulating a controlled outage on R1 and observing sensor state changes in PRTG.
 
 Validation steps:
-1. Identify a monitored target device
-2. Introduce a controlled failure (for example, shut down an interface or disconnect a path)
-3. Observe the affected sensor state in PRTG
-4. Confirm the sensor changes from Up to Down
-5. Restore connectivity and confirm the sensor returns to Up
+1. Confirm R1 sensors are in Up state
+2. Stop R1 in the lab environment
+3. Wait for the next PRTG scan cycle
+4. Confirm affected R1 sensors change from Up to Down
+5. Start R1 again
+6. Wait for the next PRTG scan cycle
+7. Confirm affected sensors return to Up
 
 Expected result:
-- PRTG displays an alarm for the affected sensor
-- The alarm clears after service is restored
+- PRTG displays an alarm for the affected R1 sensors during the outage
+- The alarm clears after connectivity is restored
+
+See evidence: R1 Down
+- [GNS3 R1 STOP](../screenshots/gns3-topology-r1-down.png)
+- [R1 Down](../screenshots/r1-down-alert.png)
+
+See evidence: R1 Recovery
+- [R1 Recovery Warming up](../screenshots/r1-recovery-green-part1.png)
+- [R1 Recovery Partial Green](../screenshots/r1-recovery-green-part2.png)
+- [R1 Recovery All Green](../screenshots/r1-recovery-green-part3.png)
 
 ---
 
@@ -104,7 +117,7 @@ To reduce false positives, only relevant and validated sensors were used in this
 
 In a real NOC environment, alerts are the starting point for incident handling.
 
-The workflow is typically:
+Typical workflow:
 1. Monitoring sensor changes state
 2. Alert appears in the monitoring platform
 3. Operator reviews affected device and metric
@@ -112,10 +125,6 @@ The workflow is typically:
 5. Incident is logged or escalated if needed
 
 This lab reflects the first stage of that process by showing how sensor failures become visible operational events.
-
-See evidence: `monitoring/images/r1-down-alert.png`
-
-See evidence: `monitoring/images/r1-recovery-green.png`
 
 ---
 
