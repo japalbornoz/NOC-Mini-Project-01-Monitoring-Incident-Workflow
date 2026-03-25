@@ -26,10 +26,10 @@ Unlike the router-down scenario, this incident focuses on a link-level fault aff
 The incident was detected when connectivity across the R1-to-DSW1 path was disrupted while the router itself remained reachable.
 
 Observed indicators:
-- R1 remained reachable from PRTG
-- Some downstream connectivity was affected
-- Interface-related monitoring behavior changed during the test
-- The issue appeared narrower than a full router outage
+- R1 (192.168.61.10) remained reachable via ICMP from PRTG
+- DSW1 (10.10.10.2) became unreachable
+- PC1 (10.10.10.10) and SRV1 (10.10.10.20) became unreachable from the monitoring host
+- PRTG showed partial failure (not full device outage)
 
 This helped distinguish the event from Incident 01, where all R1 sensors failed due to full device unavailability.
 
@@ -37,7 +37,7 @@ This helped distinguish the event from Incident 01, where all R1 sensors failed 
 PRTG Dashboard
 - [PRTG Healthy Dashboard View](../screenshots/prtg-dashboard-healthy.png)
 - [PRTG Dashboard DSW1 Down](../screenshots/prtg-dashboard-dsw1-down.png)
-- [PRTG Dashboard DSW1 Down](../screenshots/dsw1-down-alert.png)
+- [PRTG DSW1 Sensors List Down](../screenshots/dsw1-down-alert.png)
 
 
 GNS3 Topology
@@ -47,14 +47,12 @@ GNS3 Topology
 
 ## 4. Impact Assessment
 
-When the R1-to-DSW1 path was disrupted, the following operational impact was observed:
+Observed impact in the lab:
 
-- R1 itself remained up and reachable
-- Connectivity to devices behind the affected path may have been impacted
-- Traffic across the affected interface was interrupted
-- The incident appeared limited to a specific network segment or forwarding path
-
-In a production environment, this type of issue would likely affect a subset of services or endpoints rather than the entire device.
+- R1 remained operational and reachable
+- DSW1 management SVI (10.10.10.2) became unreachable
+- End devices (PC1, SRV1) behind DSW1 were not reachable from the monitoring host
+- Traffic between R1 and VLAN 10 segment was interrupted
 
 ---
 
@@ -75,6 +73,134 @@ Checks performed:
 Initial conclusion:
 - The device remained operational, but a specific path or interface was unavailable
 
+Commands used during triage:
+
+R1:
+- show ip interface brief
+```cisco
+R1#sh ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            10.10.10.1      YES NVRAM  up                    up
+FastEthernet0/1            192.168.61.10   YES NVRAM  up                    up
+FastEthernet1/0            unassigned      YES NVRAM  administratively down down
+```
+
+- show arp
+```cisco
+R1#sh arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.10.10.10            75   0050.7966.6800  ARPA   FastEthernet0/0
+Internet  10.10.10.2            118   aabb.cc80.0100  ARPA   FastEthernet0/0
+Internet  10.10.10.1              -   c001.356f.0000  ARPA   FastEthernet0/0
+Internet  10.10.10.20            75   0050.7966.6801  ARPA   FastEthernet0/0
+Internet  192.168.61.1            0   0050.56c0.0001  ARPA   FastEthernet0/1
+Internet  192.168.61.10           -   c001.356f.0001  ARPA   FastEthernet0/1
+```
+
+- ping 192.168.61.1
+```cisco
+R1#ping 192.168.61.1
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.61.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 60/64/68 ms
+```
+
+- ping 10.10.10.2
+```cisco
+R1#ping 10.10.10.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+```
+
+DSW1:
+- show ip interface brief
+```cisco
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  administratively down down
+Ethernet0/1            unassigned      YES unset  up                    up
+Ethernet0/2            unassigned      YES unset  up                    up
+Ethernet0/3            unassigned      YES unset  up                    up
+Ethernet1/0            unassigned      YES unset  up                    up
+Ethernet1/1            unassigned      YES unset  up                    up
+Ethernet1/2            unassigned      YES unset  up                    up
+Ethernet1/3            unassigned      YES unset  up                    up
+Ethernet2/0            unassigned      YES unset  up                    up
+Ethernet2/1            unassigned      YES unset  up                    up
+Ethernet2/2            unassigned      YES unset  up                    up
+Ethernet2/3            unassigned      YES unset  up                    up
+Ethernet3/0            unassigned      YES unset  up                    up
+Ethernet3/1            unassigned      YES unset  up                    up
+Ethernet3/2            unassigned      YES unset  up                    up
+Ethernet3/3            unassigned      YES unset  up                    up
+Vlan1                  unassigned      YES unset  administratively down down
+Vlan10                 10.10.10.2      YES NVRAM  up                    up
+```
+
+- show vlan brief
+```cisco
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
+                                                Et1/3, Et2/0, Et2/1, Et2/2
+                                                Et2/3, Et3/0, Et3/1, Et3/2
+                                                Et3/3
+10   USERS                            active    Et0/0, Et0/1, Et0/2
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+```
+
+Windows:
+- ping 192.168.61.10
+```bash
+C:\Windows\System32>ping 192.168.61.10
+
+Pinging 192.168.61.10 with 32 bytes of data:
+Reply from 192.168.61.10: bytes=32 time=3ms TTL=255
+Reply from 192.168.61.10: bytes=32 time=8ms TTL=255
+Reply from 192.168.61.10: bytes=32 time=5ms TTL=255
+Reply from 192.168.61.10: bytes=32 time=5ms TTL=255
+
+Ping statistics for 192.168.61.10:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 3ms, Maximum = 8ms, Average = 5ms
+```
+
+- ping 10.10.10.2
+```bash
+C:\Windows\System32>ping 10.10.10.2
+
+Pinging 10.10.10.2 with 32 bytes of data:
+Request timed out.
+Request timed out.
+Request timed out.
+Request timed out.
+
+Ping statistics for 10.10.10.2:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+```
+
+- ping 10.10.10.10
+```bash
+C:\Windows\System32>ping 10.10.10.10
+
+Pinging 10.10.10.10 with 32 bytes of data:
+Request timed out.
+Request timed out.
+Request timed out.
+Request timed out.
+
+Ping statistics for 10.10.10.10:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+```
+
 ---
 
 ## 6. Timeline of Events
@@ -89,8 +215,6 @@ Initial conclusion:
 | T5 | Monitoring visibility and connectivity began recovery |
 | T6 | Normal state fully restored |
 
-> Replace `T0` to `T6` with actual timestamps if recorded during testing.
-
 ---
 
 ## 7. Technical Validation
@@ -98,10 +222,12 @@ Initial conclusion:
 The incident was validated by confirming that the router remained operational while the affected path experienced disruption.
 
 Validation points:
-- R1 continued responding to monitoring
-- The outage did not match full device-loss behavior
-- Interface-related traffic or downstream reachability changed during the event
-- Recovery was confirmed after the link or interface was restored
+
+- R1 FastEthernet0/1 (192.168.61.10) remained up/up
+- R1 FastEthernet0/0 (10.10.10.1) remained up/up
+- No response from DSW1 (10.10.10.2), indicating downstream failure
+- R1 maintained upstream connectivity while downstream reachability to DSW1 and end devices failed
+- Connectivity restored immediately after interface recovery
 
 ### Recovery Evidence
 - [Interface Recovery Evidence](../screenshots/interface-recovery-green.png)
@@ -112,7 +238,9 @@ Validation points:
 
 ## 8. Root Cause
 
-**Root cause:** Controlled lab simulation of an interface or link outage between R1 and DSW1.
+**Root cause:** Controlled administrative shutdown or disconnection of the DSW1 uplink interface (`Ethernet0/0`) connected to R1.
+
+This caused loss of Layer 2 connectivity between R1 and the downstream switched segment, making DSW1 and attached end devices unreachable from the monitoring host.
 
 The outage was introduced intentionally to validate:
 - detection of partial network failures
@@ -128,11 +256,18 @@ This was a deliberate test scenario, not an unexpected platform failure.
 The incident was resolved by restoring the affected interface or link in the lab environment.
 
 Resolution steps:
-1. Re-enable or reconnect the affected interface or path
-2. Wait for connectivity to return
-3. Allow PRTG to complete the next scan cycle
-4. Confirm monitoring values return to normal
-5. Verify affected connectivity is restored
+
+1. Re-enabled the affected interface:
+   - DSW1: interface Ethernet0/0 → no shutdown
+
+2. Verified interface status:
+   - show ip interface brief
+
+3. Validated connectivity:
+   - ping 10.10.10.2
+   - ping 10.10.10.10
+
+4. Confirmed PRTG sensors returned to UP state
 
 Final result:
 - The affected path returned to normal operation
@@ -141,7 +276,21 @@ Final result:
 
 ---
 
-## 10. Lessons Learned
+## 10. Scope Identification
+
+The issue was isolated to the R1-to-DSW1 link because:
+
+- R1 remained reachable from the monitoring host
+- Only downstream devices behind DSW1 were affected
+- No impact observed on the host-facing subnet (192.168.61.0/24)
+
+Conclusion:
+The failure domain was limited to the internal switching segment, not the edge router or monitoring path.
+
+---
+
+
+## 11. Lessons Learned
 
 This incident confirmed the following:
 
@@ -152,7 +301,7 @@ This incident confirmed the following:
 
 ---
 
-## 11. NOC Relevance
+## 12. NOC Relevance
 
 This incident reflects a common NOC responsibility:
 
@@ -168,7 +317,7 @@ For an L1 NOC role, this demonstrates the ability to:
 
 ---
 
-## 12. Related Files
+## 13. Related Files
 
 - [Alert Configuration](../monitoring/alert-configuration.md)
 - [Dashboard Evidence](../monitoring/dashboard-evidence.md)
