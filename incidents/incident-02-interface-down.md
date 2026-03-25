@@ -1,3 +1,5 @@
+# Incident 02 - Interface Down
+
 ## 1. Incident Summary
 
 This incident documents a controlled interface or link outage in the lab environment to validate monitoring visibility, incident detection, and initial triage of a partial network failure.
