@@ -39,15 +39,15 @@ Operational value:
 - allows quick identification of affected devices
 - helps determine whether the issue is isolated or widespread
 
-### Sensor Detail View
+### Device Overview / Sensor List View
 Used to identify:
-- individual sensor health
+- sensor status for a selected device
 - response time values
 - uptime data
 - interface traffic activity
 
 Operational value:
-- helps confirm which metric has failed
+- helps confirm which device-level metrics are healthy or failed
 - provides more detail for initial troubleshooting
 
 ### Alarm View
@@ -65,10 +65,10 @@ Operational value:
 
 Under normal conditions, the dashboard showed:
 
-- all monitored devices in Up state
-- all validated sensors reporting normally
-- no active alarms
-- stable visibility across R1, DSW1, PC1, and SRV1
+- monitored infrastructure devices in Up state
+- validated sensors reporting normally
+- no active service-impacting alarm condition on the monitored devices shown
+- stable visibility across the monitored lab environment
 
 This represents the expected monitoring baseline for the lab.
 
