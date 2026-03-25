@@ -51,7 +51,7 @@ Observed impact in the lab:
 - R1 remained operational and reachable
 - DSW1 management SVI (10.10.10.2) became unreachable
 - End devices (PC1, SRV1) behind DSW1 were not reachable from the monitoring host
-- Traffic between R1 and VLAN 10 segment was interrupted
+- Connectivity between R1 and the downstream VLAN 10 segment was interrupted
 
 ---
 
@@ -202,11 +202,9 @@ Validation points:
 - Connectivity restored immediately after interface recovery
 
 ### Recovery Evidence
-- [PRTG Dashboard DSW1 Down](../screenshots/prtg-dashboard-dsw1-up.png)
-- [PRTG DSW1 Sensors List Down](../screenshots/dsw1-up-alert.png)
-
-GNS3 Topology
-- [GNS3 DSW1 Interface e0/0 Down](../screenshots/gns3-topology-dsw1-interface-e0-up.png)
+- [PRTG Dashboard DSW1 Up](../screenshots/prtg-dashboard-dsw1-up.png)
+- [PRTG DSW1 Sensors List Up](../screenshots/dsw1-up-alert.png)
+- [GNS3 DSW1 Interface e0/0 Up](../screenshots/gns3-topology-dsw1-interface-e0-up.png)
 
 ---
 
