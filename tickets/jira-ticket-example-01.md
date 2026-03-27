@@ -1,118 +1,171 @@
-# Jira Ticket Example 01 - R1 Router Down
+# Jira Ticket Example 01 - Real PRTG Alert Intake for R1 Router Down
 
-## 1. Ticket Purpose
+## 1. Objective
 
-This file shows an example Jira Service Management incident ticket based on **Incident 01 - Router Down** from the lab.
+This file documents a real Jira Service Management ticket created automatically from a PRTG alert during a controlled R1 outage in the lab.
 
-This is a manually documented ticket example used to demonstrate how a monitored alert can be translated into an incident record for operational tracking.
-
----
-
-## 2. Ticket Summary
-
-- **Ticket Type:** Incident
-- **Reference Incident:** INC-01
-- **Title:** R1 Router Down
-- **Priority:** High
-- **Status:** Resolved
-- **Environment:** Lab / simulated NOC workflow
-- **Detection Source:** PRTG sensor alert
+Unlike a manually written example, this ticket was generated through the validated monitoring-to-ticketing workflow configured for this project.
 
 ---
 
-## 3. Affected Service / Component
+## 2. Scenario Summary
 
-- **Affected Device:** R1
-- **Affected Service:** Routed connectivity between monitoring host and internal lab network
-- **Impact Summary:** Loss of monitoring visibility and routed access through the edge router path
+A controlled outage was introduced by stopping R1 in the GNS3 topology.
+
+PRTG detected the outage through the `Ping v2` sensor assigned to R1.  
+After the configured trigger interval was met, PRTG sent an email notification through the configured Gmail SMTP relay.  
+Jira Service Management received the email through the project intake address and created a new service request automatically.
+
+This validated the complete alert-to-ticket workflow.
 
 ---
 
-## 4. Description
+## 3. Ticket Identification
 
-PRTG generated an alert indicating that R1 became unreachable.
+- **Jira Project:** NOC Mini Project 01 - Monitoring & Incidents
+- **Queue:** From PRTG
+- **Ticket Key:** `NOC01-10`
+- **Request Type:** Emailed request
+- **Status:** Waiting for support
+- **Reporter:** Jap Albornoz
+- **Priority:** Highest
+- **Environment:** Lab
 
-Multiple R1-related sensors changed from **Up** to **Down**, including:
+> Ticket key may vary if the workflow is retested and a newer request is generated.
 
+---
+
+## 4. Trigger Source
+
+### Primary Alerting Sensor
+- **Device:** R1
+- **Sensor:** Ping v2
+- **Condition:** Sensor state = Down for at least 60 seconds
+- **Notification Template:** Jira - PRTG Alert Intake
+
+### Why Ping v2 Was Used
+`Ping v2` was selected as the primary alerting sensor for this workflow because it provides a clean availability signal for router reachability loss.
+
+Other R1 sensors such as:
 - Ping
-- Ping v2
 - SNMP System Uptime
-- SNMP Traffic (TO_DSW1)
+- (002) TO_DSW1 Traffic
 
-The alert suggested full device unavailability rather than a single-sensor failure.
+were treated as supporting sensors for the same outage rather than separate ticket sources.
 
----
-
-## 5. Symptoms Observed
-
-- R1 unreachable in PRTG
-- Multiple R1 sensors in Down state
-- Monitoring visibility to the routed internal path affected
-- Event matched a full router outage condition
+This kept the workflow cleaner and avoided duplicate Jira tickets for one root incident.
 
 ---
 
-## 6. Initial Triage Notes
+## 5. Actual Alert-to-Ticket Workflow
 
-Initial checks performed:
+The validated workflow was:
 
-- Reviewed affected R1 sensors in PRTG
-- Confirmed multiple monitoring points failed simultaneously
-- Compared behavior against normal healthy-state monitoring
-- Correlated the event with the controlled lab outage condition
-
-Initial assessment:
-- Likely full device outage
-- Not limited to a single protocol or individual sensor failure
-
----
-
-## 7. Actions Taken
-
-- Confirmed outage visibility in PRTG
-- Verified that R1 had been intentionally stopped in the lab for testing
-- Monitored sensor state changes during the outage window
-- Restored R1 in GNS3
-- Waited for the next PRTG scan cycle
-- Confirmed affected sensors returned to Up state
+1. R1 was stopped in GNS3
+2. PRTG detected the R1 `Ping v2` sensor state change to **Down**
+3. PRTG state trigger waited for the configured threshold
+4. PRTG sent an email using the configured Gmail SMTP relay
+5. Jira Service Management intake email received the alert
+6. Jira created a new request automatically in the **From PRTG** queue
+7. Ticket details reflected the outage information sent by PRTG
 
 ---
 
-## 8. Resolution Notes
+## 6. Subject and Body Mapping
 
-R1 was restored in the lab environment and monitoring visibility returned to normal.
+### PRTG Email Subject
+The generated email subject created the Jira ticket summary.
 
-All affected R1 sensors recovered successfully after the router was started again and PRTG completed the next scan cycle.
+Example:
 
----
+```text
+[PRTG] R1 Ping v2 (Ping v2) - Down (Error caused by lookup value 'Unreachable' in channel 'Status' (The reply timed out.))
 
-## 9. Closure Summary
+PRTG Custom Body
 
-- **Root Cause:** Controlled lab simulation of router outage
-- **Resolution:** R1 restarted and monitoring restored
-- **Final Status:** Resolved
-- **Closure Note:** Incident successfully validated alert generation, outage visibility, and recovery confirmation workflow
+The email body was mapped into the Jira ticket description.
 
----
-
-## 10. Suggested Jira Fields Mapping
-
-| Jira Field | Example Value |
-|-----------|---------------|
-| Issue Type | Incident |
-| Summary | R1 Router Down |
-| Priority | High |
-| Status | Resolved |
-| Source | PRTG |
-| Affected CI | R1 |
-| Environment | Lab |
-| Resolution | Router restored |
-| Root Cause | Controlled outage simulation |
+Validated fields included:
+Source: PRTG
+Site: PRTG Network Monitor (JAPNYTE)
+Device: R1
+Sensor: Ping v2 (Ping v2)
+Status: Down
+Down:
+Message: Error caused by lookup value 'Unreachable' in channel 'Status' (The reply timed out.)
+Environment: Lab
+```
 
 ---
 
-## 11. Related Files
+## 7. Evidence
+
+### PRTG Detection
+- [PRTG R1 Ping v2 Sensor Down](../screenshots/prtg-r1-sensor-ping-v2-down.png)
+- [PRTG Overview - R1 Down](../screenshots/prtg-overview-r1-down.png)
+
+### Trigger and Delivery Configuration
+- [PRTG Notification Trigger - R1 Ping v2](../screenshots/prtg-notification-trigger-r1-ping-v2.png)
+- [PRTG SMTP Relay Settings](../screenshots/prtg-notification-delivery-smtp-relay-settings.png)
+
+### Delivery Confirmation
+- [PRTG Log - Notification Sent Successfully](../screenshots/prtg-log-entries-r1-notification-sent.png)
+
+### Source Outage in GNS3
+- [GNS3 R1 Down State](../screenshots/gns3-r1-down.png)
+
+### Jira Ticket Creation
+- [Jira Queue Showing R1 Notification](../screenshots/jira-queue-showing-r1-notification.png)
+- [Jira Ticket Detail - NOC01-10](../screenshots/jira-r1-ticket-detail-noc01-10.png)
+
+---
+
+## 8. Operational Value
+
+This validation demonstrates that the monitoring platform was not only able to detect an outage, but also pass the incident context into the ticketing platform automatically.
+
+Operationally, this provides:
+
+- faster incident intake
+- reduced manual ticket creation
+- consistent alert formatting
+- better traceability between monitoring and service management
+
+For a NOC workflow, this is important because it reduces the delay between detection and documented response.
+---
+
+## 9. Troubleshooting Lessons Learned
+
+This workflow did not work immediately during initial testing.
+
+The key issue was outbound email delivery from PRTG.
+
+### Initial Problem
+PRTG alert triggers were firing, but Jira did not receive any incident emails.
+
+### Root Cause
+PRTG email delivery was initially using direct delivery and later failed authentication with a regular Gmail password.
+
+### Fix Applied
+The workflow started working after:
+
+- changing PRTG to use **one SMTP relay server**
+- setting Gmail SMTP relay:
+  - `smtp.gmail.com`
+  - port `587`
+- using **standard SMTP authentication**
+- using a **Google app password**
+- retesting delivery with Jira intake email
+
+After SMTP delivery was corrected, Jira successfully received live outage notifications.
+
+This was an important lab troubleshooting lesson because the monitoring trigger itself was correct; the failure was in the notification delivery path.
+
+---
+
+## 10. Related Files
 
 - [Incident 01 - Router Down](../incidents/incident-01-router-down.md)
 - [Alert Configuration](../monitoring/alert-configuration.md)
 - [Dashboard Evidence](../monitoring/dashboard-evidence.md)
+- [Escalation Workflow](escalation-workflow.md)
