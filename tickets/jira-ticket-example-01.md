@@ -131,7 +131,8 @@ Operationally, this provides:
 - consistent alert formatting
 - better traceability between monitoring and service management
 
-For a NOC workflow, this is important because it reduces the delay between detection and documented response.
+For a NOC workflow, this is important because it reduces the delay between detection and documented response.  
+
 ---
 
 ## 9. Troubleshooting Lessons Learned
