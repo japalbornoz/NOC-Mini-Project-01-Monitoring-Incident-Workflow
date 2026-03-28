@@ -80,12 +80,14 @@ Example:
 
 ```text
 [PRTG] R1 Ping v2 (Ping v2) - Down (Error caused by lookup value 'Unreachable' in channel 'Status' (The reply timed out.))
+```
 
-PRTG Custom Body
-
+### PRTG Custom Body
 The email body was mapped into the Jira ticket description.
 
 Validated fields included:
+
+```text
 Source: PRTG
 Site: PRTG Network Monitor (JAPNYTE)
 Device: R1
@@ -95,6 +97,7 @@ Down:
 Message: Error caused by lookup value 'Unreachable' in channel 'Status' (The reply timed out.)
 Environment: Lab
 ```
+This confirms that both the alert summary and supporting incident context were transferred successfully into Jira.
 
 ---
 
