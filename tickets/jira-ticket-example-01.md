@@ -25,6 +25,7 @@ This validated the complete alert-to-ticket workflow.
 - **Jira Project:** NOC Mini Project 01 - Monitoring & Incidents
 - **Queue:** From PRTG
 - **Ticket Key:** `NOC01-10`
+- **Summary:** `[PRTG] R1 Ping v2 (Ping v2) - Down (Error caused by lookup value 'Unreachable' in channel 'Status' (The reply timed out.))`
 - **Request Type:** Emailed request
 - **Status:** Waiting for support
 - **Reporter:** Jap Albornoz
